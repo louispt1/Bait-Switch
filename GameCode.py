@@ -63,7 +63,7 @@ class Player :
             card.show()
 
     def playCard(self, card) :
-        self.hand.remove(card)
+        self.hand.remove(card) #TODO: check if card is in hand (error handling)
         return card.value
 
     def showScore(self) :
@@ -74,10 +74,13 @@ class Game :
     def __init__(self) :
         self.deck = Deck()
         self.players = []
-        self.turn = 0s
+        self.turn = 0
+        self.current_hand = []
+        self.player_clockwise_order = []
         
     def addPlayer(self, player) :
         self.players.append(player)
+        self.player_clockwise_order.append(player) # Set the order that the players are supposedly 'sitting;
     
     def play(self) :
 
@@ -107,5 +110,32 @@ class Game :
         for player in self.players : # Each player draws cards from the deck until they have the right number of cards
             player.drawCards(self.deck, num_cards_pp)
 
+        self.deck.drawCard() # The deck is shuffled and the first card is shown to all players TODO--> gonna need to make this work visually
 
 
+# class AIPlayer : 
+    
+#         def __init__(self, name) :
+#             self.name = name
+#             self.hand = []
+#             self.score = 0
+    
+#         def draw(self, deck) :
+#             self.hand.append(deck.drawCard())
+    
+#         def showHand(self) :
+#             for card in self.hand :
+#                 card.show()
+    
+#         def playCard(self, card) :
+#             self.hand.remove(card)
+#             return card.value
+    
+#         def showScore(self) :
+#             print ("{} has {} points".format(self.name, self.score))
+
+#         def play(self, game) :
+#             self.drawCards(game.deck, num_cards_pp)
+#             self.showHand()
+#             card = self.playCard(self.hand[0]) #TODO: decide how to play a card
+#             return card
